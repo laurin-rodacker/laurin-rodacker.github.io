@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laurin Rodacker | Mathematics & Quantitative Finance</title>
+  <meta name="description" content="Mathematics student specialising in quantitative finance. PDE theory, options pricing, vol surface calibration, and algorithmic trading." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:      #0a0a0a;
+      --surface: #131313;
+      --border:  #2a2a2a;
+      --text:    #e8e4dc;
+      --muted:   #999;
+      --accent:  #c8a96e;
+      --accent2: #6bbfb0;
+      --serif:   'DM Serif Display', Georgia, serif;
+      --mono:    'DM Mono', 'Courier New', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.88);
+    }
+    nav .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 420px;
+      margin-bottom: 40px;
+      line-height: 1.9;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      opacity: 0.65;
+    }
+    .formula {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent2);
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-left: 3px solid var(--accent2);
+      line-height: 1.9;
+    }
+    .formula .comment { color: var(--muted); }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 48px);
+      color: var(--text);
+      margin-bottom: 48px;
+      line-height: 1.1;
+    }
+    h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 80px;
+    }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .stats {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .stat-item {
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+    }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .project-card {
+      background: var(--bg);
+      padding: 36px 32px;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+    .project-card:hover { background: var(--surface); }
+    .project-tag {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 12px;
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .project-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .project-stack {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 10px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .project-arrow {
+      float: right;
+      color: var(--accent);
+      font-size: 18px;
+      margin-top: -4px;
+    }
+
+    /* EXPERIENCE */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .timeline-item:first-child { padding-top: 0; }
+    .timeline-date {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding-top: 4px;
+    }
+    .timeline-role {
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .timeline-org {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+    .timeline-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .skill-group {
+      background: var(--bg);
+      padding: 32px;
+    }
+    .skill-group-title {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .skill-list li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .skill-list li::before {
+      content: '—';
+      color: var(--accent2);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    /* CONTACT */
+    #contact { padding-bottom: 120px; }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent2);
+      width: 80px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-grid, .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+      nav .inner { padding: 16px 20px; }
+      .nav-links { gap: 20px; }
+      .page { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="inner">
+      <a href="#hero" class="nav-name">Laurin Rodacker</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="page">
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-label">Mathematics · Quantitative Finance</p>
+          <h1>Laurin<br /><em>Rodacker</em></h1>
+          <p class="hero-sub">
+            Mathematics student at Leibniz University Hannover with a focus on
+            PDEs and quantitative finance. I build derivatives pricing engines,
+            calibrate yield curve models, and implement vol surface interpolation
+            from real market data — from first principles.
+          </p>
+          <div class="hero-cta">
+            <a href="https://github.com/laurin-rodacker" class="btn btn-primary" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/laurin-rodacker" class="btn btn-ghost" target="_blank">LinkedIn</a>
+            <a href="#contact" class="btn btn-ghost">Contact</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="formula">
+            <span class="comment">// Black-Scholes PDE</span><br />
+            ∂V/∂t + ½σ²S²∂²V/∂S² + rS∂V/∂S − rV = 0
+          </div>
+          <div class="formula">
+            <span class="comment">// Heston stochastic volatility</span><br />
+            dS = μS dt + √v · S dW₁<br />
+            dv = κ(θ − v) dt + ξ√v dW₂
+          </div>
+          <div class="formula">
+            <span class="comment">// Nelson-Siegel yield curve</span><br />
+            r(τ) = β₀ + β₁·(1−e^(−τ/λ))/(τ/λ)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₂·((1−e^(−τ/λ))/(τ/λ) − e^(−τ/λ))
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="fade-in">
+        <p class="section-label">01 — About</p>
+        <h2>Rigorous mathematics,<br /><em>real market data</em></h2>
+      </div>
+      <div class="about-grid fade-in">
+        <div class="about-text">
+          <p>
+            I'm a mathematics student at Leibniz University Hannover specialising in
+            <strong>partial differential equations and numerical analysis</strong>.
+            My coursework in PDEs and functional analysis directly informs how I
+            approach derivatives pricing and calibration problems.
+          </p>
+          <p>
+            Outside lectures, I build quantitative tools from scratch — pricing
+            engines in Python with <strong>no black-box dependencies</strong>,
+            yield curve models calibrated on real Bundesbank data, and vol surface
+            interpolation using the AAA algorithm on live SPX options. I also work
+            as a <strong>teaching assistant at the Institute of Applied Mathematics</strong>,
+            developing problem sets and running exercise sessions.
+          </p>
+          <p>
+            Currently in my third year, working towards a Master's in Mathematical Finance.
+            Applications planned for 2027.
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">3rd</div>
+            <div class="stat-label">Year, BSc Mathematics</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">PDE</div>
+            <div class="stat-label">Research Specialisation</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">MSc</div>
+            <div class="stat-label">Mathematical Finance</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="fade-in">
+        <p class="section-label">02 — Projects</p>
+        <h2>Selected<br /><em>Work</em></h2>
+      </div>
+      <div class="projects-grid fade-in">
+
+        <a href="https://github.com/laurin-rodacker/options-pricing" class="project-card" target="_blank">
+          <p class="project-tag">Derivatives Pricing</p>
+          <h3 class="project-title">Options Pricing Engine<span class="project-arrow">↗</span></h3>
+          <p class="project-desc">
+            Analytical and semi-analytical pricing for European vanilla and barrier options.
+            Implements Black-Scholes with full Greeks, implied volatility inversion,
+            and Heston stochastic volatility — every formula derived from first principles,
+            no black-box libraries.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">SciPy</span>
+            <span class="tag">Heston</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/laurin-rodacker/yield-curve-fitting" class="project-card" target="_blank">
+          <p class="project-tag">Fixed Income</p>
+          <h3 class="project-title">Yield Curve Fitting<span class="project-arrow">↗</span></h3>
+          <p class="project-desc">
+            Calibration of Nelson-Siegel (1987) and Svensson (1994) yield curve models
+            on real Bundesbank spot rate data. Pure SciPy/NumPy — no QuantLib,
+            no sklearn. Full parameter uncertainty analysis included.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">SciPy</span>
+            <span class="tag">Nelson-Siegel</span>
+            <span class="tag">Svensson</span>
+          </div>
+        </a>
+
+        <a href="https://github.com/laurin-rodacker/vol-surface-aaa" class="project-card" target="_blank">
+          <p class="project-tag">Volatility Modelling</p>
+          <h3 class="project-title">Vol Surface Interpolation<span class="project-arrow">↗</span></h3>
+          <p class="project-desc">
+            Interpolation of implied volatility surfaces from real SPX options data
+            using the AAA algorithm (Adaptive Antoulas-Anderson). Includes
+            no-arbitrage verification via calendar spread and butterfly spread checks.
+          </p>
+          <div class="project-stack">
+            <span class="tag">Python</span>
+            <span class="tag">AAA Algorithm</span>
+            <span class="tag">SPX Data</span>
+            <span class="tag">Arbitrage-Free</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="fade-in">
+        <p class="section-label">03 — Experience</p>
+        <h2>Academic &amp;<br /><em>Professional</em></h2>
+      </div>
+      <div class="timeline fade-in">
+
+        <div class="timeline-item">
+          <div class="timeline-date">Nov 2025 – Present</div>
+          <div>
+            <h3 class="timeline-role">Student Teaching Assistant</h3>
+            <p class="timeline-org">Leibniz University Hannover · Institute of Applied Mathematics</p>
+            <p class="timeline-desc">
+              Development of mathematical problem sets and competition materials.
+              Leading weekly exercise sessions and grading exams for Economics and
+              Business Administration students. Topics: calculus, linear algebra,
+              and mathematical optimisation.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">2023 – Present</div>
+          <div>
+            <h3 class="timeline-role">BSc Mathematics</h3>
+            <p class="timeline-org">Leibniz University Hannover</p>
+            <p class="timeline-desc">
+              Specialisation in partial differential equations and numerical analysis.
+              Core coursework: Stochastic Analysis, Functional Analysis,
+              Numerical Methods for PDEs, Financial Mathematics, Measure Theory.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Jan 2023</div>
+          <div>
+            <h3 class="timeline-role">Research Intern</h3>
+            <p class="timeline-org">Leibniz University Hannover · Institute for Solid State Physics</p>
+            <p class="timeline-desc">
+              Experimental physics and quantitative data analysis at foeXlab.
+              Hands-on laboratory work with measurement systems and statistical evaluation
+              of experimental results.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="fade-in">
+        <p class="section-label">04 — Skills</p>
+        <h2>Technical<br /><em>Stack</em></h2>
+      </div>
+      <div class="skills-grid fade-in">
+        <div class="skill-group">
+          <p class="skill-group-title">Mathematics</p>
+          <ul class="skill-list">
+            <li>Partial Differential Equations</li>
+            <li>Stochastic Calculus</li>
+            <li>Numerical Analysis</li>
+            <li>Functional Analysis</li>
+            <li>Measure Theory</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-title">Programming</p>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>C++</li>
+            <li>NumPy / SciPy / Pandas</li>
+            <li>Matplotlib / Plotly</li>
+            <li>Git / GitHub</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <p class="skill-group-title">Quantitative Finance</p>
+          <ul class="skill-list">
+            <li>Derivatives Pricing</li>
+            <li>Vol Surface Calibration</li>
+            <li>Yield Curve Modelling</li>
+            <li>Greeks &amp; Risk Metrics</li>
+            <li>Backtesting Frameworks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="fade-in">
+        <p class="section-label">05 — Contact</p>
+        <h2>Get in<br /><em>Touch</em></h2>
+      </div>
+      <div class="contact-inner fade-in">
+        <div>
+          <p class="contact-text">
+            Open to conversations about quantitative finance and research collaborations.
+            Best reached via email or LinkedIn.
+          </p>
+          <a href="mailto:laurin.rodacker@gmx.de" class="btn btn-primary">Send an Email</a>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:laurin.rodacker@gmx.de" class="contact-link">
+            <span class="contact-link-label">Email</span>
+            laurin.rodacker@gmx.de
+          </a>
+          <a href="https://linkedin.com/in/laurin-rodacker" class="contact-link" target="_blank">
+            <span class="contact-link-label">LinkedIn</span>
+            linkedin.com/in/laurin-rodacker
+          </a>
+          <a href="https://github.com/laurin-rodacker" class="contact-link" target="_blank">
+            <span class="contact-link-label">GitHub</span>
+            github.com/laurin-rodacker
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>© 2026 Laurin Rodacker</span>
+    <span>Mathematics · Quantitative Finance</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

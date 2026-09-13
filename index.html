@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,170 +8,146 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg:      #0a0a0a;
-      --surface: #131313;
-      --border:  #2a2a2a;
-      --text:    #e8e4dc;
-      --muted:   #999;
-      --accent:  #c8a96e;
-      --accent2: #6bbfb0;
-      --serif:   'DM Serif Display', Georgia, serif;
-      --mono:    'DM Mono', 'Courier New', monospace;
+      --paper:   #e8ede9;
+      --ink:     #1f2621;
+      --ink-soft:#576057;
+      --line:    #c9d2c9;
+      --rust:    #a8492f;
+      --teal:    #3f6b62;
+      --display: 'Newsreader', Georgia, serif;
+      --body:    'Source Serif 4', Georgia, serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 14px;
-      line-height: 1.7;
-      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.65;
     }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    .page { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    .page { max-width: 760px; margin: 0 auto; padding: 0 28px; }
 
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      background: rgba(10,10,10,0.88);
+      border-bottom: 1px solid var(--line);
     }
     nav .inner {
-      max-width: 1100px; margin: 0 auto; padding: 18px 32px;
-      display: flex; justify-content: space-between; align-items: center;
+      max-width: 760px; margin: 0 auto; padding: 22px 28px;
+      display: flex; justify-content: space-between; align-items: baseline;
     }
-    .nav-name { font-family: var(--serif); font-size: 18px; color: var(--text); text-decoration: none; }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-name { font-family: var(--display); font-size: 19px; color: var(--ink); text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 15px; border-bottom: 1px solid transparent; }
+    .nav-links a:hover { border-bottom-color: var(--rust); color: var(--ink); }
 
-    #hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; width: 100%; }
-    .hero-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; }
-    h1 { font-family: var(--serif); font-size: clamp(48px, 6vw, 80px); line-height: 1.05; color: var(--text); margin-bottom: 24px; }
-    h1 em { font-style: italic; color: var(--accent); }
-    .hero-sub { color: var(--muted); font-size: 13px; max-width: 420px; margin-bottom: 40px; line-height: 1.9; }
-    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
-
-    .btn {
-      display: inline-block; padding: 12px 28px; font-family: var(--mono);
-      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none; border: 1px solid; transition: all 0.2s; cursor: pointer; background: none;
+    header.hero { padding: 72px 0 56px; }
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(38px, 6vw, 58px);
+      line-height: 1.15;
+      max-width: 14ch;
     }
-    .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-    .btn-primary:hover { background: transparent; color: var(--accent); }
-    .btn-ghost { background: transparent; border-color: var(--border); color: var(--muted); }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .hero h1 .accent { font-style: italic; color: var(--rust); }
+    .hero-sub {
+      margin-top: 22px;
+      max-width: 56ch;
+      font-size: 18px;
+      color: var(--ink-soft);
+    }
+    .hero-cta { margin-top: 28px; display: flex; gap: 22px; flex-wrap: wrap; font-size: 15px; }
+    .hero-cta a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rust); padding-bottom: 1px; }
+    .hero-cta a:hover { color: var(--rust); }
 
-    .hero-visual { display: flex; flex-direction: column; gap: 16px; opacity: 0.65; }
-    .formula { font-family: var(--mono); font-size: 12px; color: var(--accent2); padding: 16px 20px; border: 1px solid var(--border); background: var(--surface); border-left: 3px solid var(--accent2); line-height: 1.9; }
-    .formula .comment { color: var(--muted); }
+    section { padding: 52px 0; border-top: 1px solid var(--line); }
+    section > h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 28px;
+      margin-bottom: 26px;
+    }
+    section > h2 .num { color: var(--rust); font-style: italic; margin-right: 10px; }
 
-    section { padding: 100px 0; border-top: 1px solid var(--border); }
-    .section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-    h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 48px); color: var(--text); margin-bottom: 48px; line-height: 1.1; }
-    h2 em { font-style: italic; color: var(--accent); }
+    .about-text p { margin-bottom: 16px; max-width: 62ch; }
+    .about-text em { font-style: italic; color: var(--ink); }
 
-    .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 80px; }
-    .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 14px; line-height: 1.9; }
-    .about-text p strong { color: var(--text); font-weight: 500; }
-    .stats { display: flex; flex-direction: column; gap: 32px; }
-    .stat-item { border-left: 2px solid var(--accent); padding-left: 20px; }
-    .stat-number { font-family: var(--serif); font-size: 36px; color: var(--accent); line-height: 1; margin-bottom: 4px; }
-    .stat-label { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .stats { display: flex; gap: 40px; margin-top: 34px; flex-wrap: wrap; }
+    .stat-item { min-width: 140px; }
+    .stat-number { font-family: var(--display); font-size: 30px; color: var(--rust); }
+    .stat-label { font-size: 14px; color: var(--ink-soft); margin-top: 2px; }
 
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .project-card { background: var(--bg); padding: 36px 32px; transition: background 0.2s; text-decoration: none; display: block; }
-    .project-card:hover { background: var(--surface); }
-    .project-tag { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 12px; }
-    .project-title { font-family: var(--serif); font-size: 22px; color: var(--text); margin-bottom: 12px; line-height: 1.2; }
-    .project-desc { font-size: 12px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
-    .project-stack { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tag { font-size: 10px; padding: 4px 10px; border: 1px solid var(--border); color: var(--muted); letter-spacing: 0.08em; }
-    .project-arrow { float: right; color: var(--accent); font-size: 18px; margin-top: -4px; }
+    .projects-list { display: flex; flex-direction: column; }
+    .project-item {
+      display: block; text-decoration: none; color: inherit;
+      padding: 22px 0; border-bottom: 1px solid var(--line);
+    }
+    .project-item:first-child { padding-top: 0; }
+    .project-item:hover .project-title { color: var(--rust); }
+    .project-tag { font-size: 14px; color: var(--teal); margin-bottom: 6px; }
+    .project-title { font-family: var(--display); font-size: 21px; color: var(--ink); }
+    .project-desc { margin-top: 8px; font-size: 15.5px; color: var(--ink-soft); max-width: 62ch; }
+    .project-stack { margin-top: 10px; font-size: 13.5px; color: var(--ink-soft); }
+    .project-stack span:not(:last-child)::after { content: ' · '; }
 
-    .timeline { display: flex; flex-direction: column; }
-    .timeline-item { display: grid; grid-template-columns: 200px 1fr; gap: 40px; padding: 36px 0; border-bottom: 1px solid var(--border); }
+    .timeline-item { padding: 20px 0; border-bottom: 1px solid var(--line); }
     .timeline-item:first-child { padding-top: 0; }
-    .timeline-date { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; padding-top: 4px; }
-    .timeline-role { font-family: var(--serif); font-size: 20px; color: var(--text); margin-bottom: 4px; }
-    .timeline-org { font-size: 12px; color: var(--accent); margin-bottom: 12px; letter-spacing: 0.05em; }
-    .timeline-desc { font-size: 12px; color: var(--muted); line-height: 1.8; }
+    .timeline-date { font-size: 13.5px; color: var(--rust); letter-spacing: 0.02em; }
+    .timeline-role { font-family: var(--display); font-size: 19px; margin-top: 4px; }
+    .timeline-org { font-size: 15px; color: var(--teal); margin-top: 2px; }
+    .timeline-desc { margin-top: 8px; font-size: 15px; color: var(--ink-soft); max-width: 62ch; }
+    .timeline-desc a { color: var(--rust); }
 
-    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .skill-group { background: var(--bg); padding: 32px; }
-    .skill-group-title { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
-    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .skill-list li { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 10px; }
-    .skill-list li::before { content: '—'; color: var(--accent2); font-size: 10px; flex-shrink: 0; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 8px; }
+    .skill-group-title { font-family: var(--display); font-size: 16px; margin-bottom: 12px; }
+    .skill-list { list-style: none; font-size: 15px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
 
-    #contact { padding-bottom: 120px; }
-    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .contact-text { font-size: 13px; color: var(--muted); line-height: 1.9; margin-bottom: 32px; }
+    #contact { padding-bottom: 90px; }
+    .contact-text { max-width: 56ch; color: var(--ink-soft); margin-bottom: 24px; }
+    .contact-links { display: flex; flex-direction: column; margin-top: 24px; }
+    .contact-link { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--ink); font-size: 15px; }
+    .contact-link-label { color: var(--ink-soft); width: 70px; flex-shrink: 0; }
+    .contact-link:hover { color: var(--rust); }
 
-    /* FORM */
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-    .form-field { display: flex; flex-direction: column; gap: 6px; }
-    .form-field label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); }
-    .form-field input,
-    .form-field textarea {
-      background: var(--surface); border: 1px solid var(--border);
-      color: var(--text); font-family: var(--mono); font-size: 13px;
-      padding: 12px 16px; outline: none; transition: border-color 0.2s;
-      resize: none; width: 100%;
+    .contact-form { display: flex; flex-direction: column; gap: 14px; max-width: 480px; }
+    .form-field label { font-size: 13.5px; color: var(--ink-soft); display: block; margin-bottom: 5px; }
+    .form-field input, .form-field textarea {
+      width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--line);
+      color: var(--ink); font-family: var(--body); font-size: 16px; padding: 8px 0; outline: none; resize: none;
     }
-    .form-field input:focus,
-    .form-field textarea:focus { border-color: var(--accent); }
-    .form-field input::placeholder,
-    .form-field textarea::placeholder { color: #444; }
+    .form-field input:focus, .form-field textarea:focus { border-bottom-color: var(--rust); }
     .hp-field { display: none; }
-    .form-submit { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .form-status { font-size: 12px; color: var(--accent2); display: none; }
+    .form-submit { display: flex; align-items: center; gap: 16px; margin-top: 6px; }
+    .btn {
+      display: inline-block; padding: 10px 20px; font-family: var(--body); font-size: 15px;
+      text-decoration: none; border: 1px solid var(--ink); color: var(--ink); background: none; cursor: pointer;
+    }
+    .btn:hover { background: var(--ink); color: var(--paper); }
+    .form-status { font-size: 14px; color: var(--teal); display: none; }
 
-    .contact-links { display: flex; flex-direction: column; }
-    .contact-link { display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--muted); font-size: 12px; letter-spacing: 0.05em; padding: 16px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .contact-link:hover { color: var(--accent); }
-    .contact-link-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent2); width: 80px; flex-shrink: 0; }
+    footer {
+      border-top: 1px solid var(--line); padding: 26px 0; max-width: 760px; margin: 0 auto;
+      display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-soft);
+    }
 
-    footer { border-top: 1px solid var(--border); padding: 32px; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 11px; letter-spacing: 0.08em; }
-
-    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in.visible { opacity: 1; transform: none; }
-
-    @media (max-width: 768px) {
-      .hero-grid, .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-visual { display: none; }
+    @media (max-width: 640px) {
       .skills-grid { grid-template-columns: 1fr; }
-      .timeline-item { grid-template-columns: 1fr; gap: 8px; }
-      nav .inner { padding: 16px 20px; }
-      .nav-links { gap: 20px; }
-      .page { padding: 0 20px; }
+      nav .inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .nav-links { gap: 16px; flex-wrap: wrap; }
     }
   </style>
-
 </head>
 <body>
 
   <nav>
     <div class="inner">
-      <a href="#hero" class="nav-name">Laurin Rodacker</a>
+      <a href="#top" class="nav-name">Laurin Rodacker</a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -183,255 +158,196 @@
     </div>
   </nav>
 
-  <main class="page">
+  <main class="page" id="top">
 
-<section id="hero">
-  <div class="hero-grid">
-    <div>
-      <p class="hero-label">Mathematics · Quantitative Finance</p>
-      <h1>Laurin<br /><em>Rodacker</em></h1>
+    <header class="hero">
+      <h1>Rigorous mathematics for <span class="accent">quantitative finance</span></h1>
       <p class="hero-sub">
-        Mathematics graduate (BSc, Leibniz University Hannover) now pursuing
-        an MSc in Mathematical Finance at the University of Vienna. My
-        background is in PDE theory and stochastic analysis — I build
-        derivatives pricing engines, calibrate yield curve models, and
-        implement vol surface interpolation from real market data —
-        from first principles.
+        Mathematics graduate (BSc, Leibniz University Hannover) now pursuing an MSc in
+        Mathematical Finance at the University of Vienna. I build derivatives pricing
+        engines, calibrate yield curve models, and implement vol surface interpolation
+        from real market data — from first principles.
       </p>
       <div class="hero-cta">
-        <a href="https://github.com/laurin-rodacker" class="btn btn-primary" target="_blank">GitHub</a>
-        <a href="https://linkedin.com/in/laurin-rodacker" class="btn btn-ghost" target="_blank">LinkedIn</a>
-        <a href="#contact" class="btn btn-ghost">Contact</a>
+        <a href="https://github.com/laurin-rodacker" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/laurin-rodacker" target="_blank">LinkedIn</a>
+        <a href="#contact">Contact</a>
       </div>
-    </div>
-    <div class="hero-visual">
-      <div class="formula">
-        <span class="comment">// Black-Scholes PDE</span><br />
-        ∂V/∂t + ½σ²S²∂²V/∂S² + rS∂V/∂S − rV = 0
-      </div>
-      <div class="formula">
-        <span class="comment">// Heston stochastic volatility</span><br />
-        dS = μS dt + √v · S dW₁<br />
-        dv = κ(θ − v) dt + ξ√v dW₂
-      </div>
-      <div class="formula">
-        <span class="comment">// Nelson-Siegel yield curve</span><br />
-        r(τ) = β₀ + β₁·(1−e^(−τ/λ))/(τ/λ)<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + β₂·((1−e^(−τ/λ))/(τ/λ) − e^(−τ/λ))
-      </div>
-    </div>
-  </div>
-</section>
+    </header>
 
-<section id="about">
-  <div class="fade-in">
-    <p class="section-label">01 — About</p>
-    <h2>Rigorous mathematics,<br /><em>real market data</em></h2>
-  </div>
-  <div class="about-grid fade-in">
-    <div class="about-text">
-      <p>I hold a BSc in Mathematics from Leibniz University Hannover, specialising in <strong>partial differential equations and numerical analysis</strong>. My thesis, <em>"A stochastic PDE system for chemotaxis"</em>, was graded 1.0.</p>
-      <p>Alongside my studies, I build quantitative tools from scratch — pricing engines in Python with <strong>no black-box dependencies</strong>, yield curve models calibrated on real Bundesbank data, and vol surface interpolation using the AAA algorithm on live SPX options. Between November 2025 and September 2026 I worked in academic assistant and research roles at the Institute of Applied Mathematics (LUH) and completed a research internship at the Zuse Institute Berlin (ZIB).</p>
-      <p>I'm now pursuing a Master's in Mathematical Finance at the University of Vienna, started in 2026.</p>
-    </div>
-    <div class="stats">
-      <div class="stat-item">
-        <div class="stat-number">1.0</div>
-        <div class="stat-label">Bachelor Thesis Grade</div>
+    <section id="about">
+      <h2><span class="num">01</span>About</h2>
+      <div class="about-text">
+        <p>I hold a BSc in Mathematics from Leibniz University Hannover, specialising in partial differential equations and numerical analysis. My thesis, <em>"A stochastic PDE system for chemotaxis,"</em> was graded 1.0.</p>
+        <p>Alongside my studies, I build quantitative tools from scratch — pricing engines in Python with no black-box dependencies, yield curve models calibrated on real Bundesbank data, and vol surface interpolation using the AAA algorithm on live SPX options. Between November 2025 and September 2026 I worked in academic assistant and research roles at the Institute of Applied Mathematics (LUH) and completed a research internship at the Zuse Institute Berlin (ZIB).</p>
+        <p>I'm now pursuing a Master's in Mathematical Finance at the University of Vienna, started in 2026.</p>
       </div>
-      <div class="stat-item">
-        <div class="stat-number">PDE</div>
-        <div class="stat-label">Research Specialisation</div>
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number">1.3</div>
+          <div class="stat-label">Bachelor GPA (thesis: 1.0)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">213</div>
+          <div class="stat-label">ECTS completed (180 required)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">MSc</div>
+          <div class="stat-label">Mathematical Finance, Vienna</div>
+        </div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number">MSc</div>
-        <div class="stat-label">Mathematical Finance, Vienna</div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="projects">
-  <div class="fade-in">
-    <p class="section-label">02 — Projects</p>
-    <h2>Selected<br /><em>Work</em></h2>
-  </div>
-  <div class="projects-grid fade-in">
-    <a href="https://github.com/laurin-rodacker/options-pricing" class="project-card" target="_blank">
-      <p class="project-tag">Derivatives Pricing</p>
-      <h3 class="project-title">Options Pricing Engine<span class="project-arrow">↗</span></h3>
-      <p class="project-desc">Analytical and semi-analytical pricing for European vanilla and barrier options. Implements Black-Scholes with full Greeks, implied volatility inversion, and Heston stochastic volatility — every formula derived from first principles, no black-box libraries.</p>
-      <div class="project-stack">
-        <span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">SciPy</span><span class="tag">Heston</span>
+    <section id="projects">
+      <h2><span class="num">02</span>Selected work</h2>
+      <div class="projects-list">
+        <a href="https://github.com/laurin-rodacker/options-pricing" class="project-item" target="_blank">
+          <p class="project-tag">Derivatives pricing</p>
+          <h3 class="project-title">Options Pricing Engine</h3>
+          <p class="project-desc">Analytical and semi-analytical pricing for European vanilla and barrier options. Implements Black-Scholes with full Greeks, implied volatility inversion, and Heston stochastic volatility — every formula derived from first principles.</p>
+          <p class="project-stack"><span>Python</span><span>NumPy</span><span>SciPy</span><span>Heston</span></p>
+        </a>
+        <a href="https://github.com/laurin-rodacker/yield-curve-fitting" class="project-item" target="_blank">
+          <p class="project-tag">Fixed income</p>
+          <h3 class="project-title">Yield Curve Fitting</h3>
+          <p class="project-desc">Calibration of Nelson-Siegel (1987) and Svensson (1994) yield curve models on real Bundesbank spot rate data. Pure SciPy/NumPy — no QuantLib, no sklearn.</p>
+          <p class="project-stack"><span>Python</span><span>SciPy</span><span>Nelson-Siegel</span><span>Svensson</span></p>
+        </a>
+        <a href="https://github.com/laurin-rodacker/vol-surface-aaa" class="project-item" target="_blank">
+          <p class="project-tag">Volatility modelling</p>
+          <h3 class="project-title">Vol Surface Interpolation</h3>
+          <p class="project-desc">Interpolation of implied volatility surfaces from real SPX options data using the AAA algorithm. Includes no-arbitrage verification via calendar spread and butterfly spread checks.</p>
+          <p class="project-stack"><span>Python</span><span>AAA Algorithm</span><span>SPX Data</span><span>Arbitrage-Free</span></p>
+        </a>
       </div>
-    </a>
-    <a href="https://github.com/laurin-rodacker/yield-curve-fitting" class="project-card" target="_blank">
-      <p class="project-tag">Fixed Income</p>
-      <h3 class="project-title">Yield Curve Fitting<span class="project-arrow">↗</span></h3>
-      <p class="project-desc">Calibration of Nelson-Siegel (1987) and Svensson (1994) yield curve models on real Bundesbank spot rate data. Pure SciPy/NumPy — no QuantLib, no sklearn. Full parameter uncertainty analysis included.</p>
-      <div class="project-stack">
-        <span class="tag">Python</span><span class="tag">SciPy</span><span class="tag">Nelson-Siegel</span><span class="tag">Svensson</span>
-      </div>
-    </a>
-    <a href="https://github.com/laurin-rodacker/vol-surface-aaa" class="project-card" target="_blank">
-      <p class="project-tag">Volatility Modelling</p>
-      <h3 class="project-title">Vol Surface Interpolation<span class="project-arrow">↗</span></h3>
-      <p class="project-desc">Interpolation of implied volatility surfaces from real SPX options data using the AAA algorithm (Adaptive Antoulas-Anderson). Includes no-arbitrage verification via calendar spread and butterfly spread checks.</p>
-      <div class="project-stack">
-        <span class="tag">Python</span><span class="tag">AAA Algorithm</span><span class="tag">SPX Data</span><span class="tag">Arbitrage-Free</span>
-      </div>
-    </a>
-  </div>
-</section>
+    </section>
 
-<section id="experience">
-  <div class="fade-in">
-    <p class="section-label">03 — Experience</p>
-    <h2>Academic &amp;<br /><em>Professional</em></h2>
-  </div>
-  <div class="timeline fade-in">
-    <div class="timeline-item">
-      <div class="timeline-date">2026 – Present</div>
-      <div>
-        <h3 class="timeline-role">MSc Mathematical Finance</h3>
-        <p class="timeline-org">University of Vienna</p>
+    <section id="experience">
+      <h2><span class="num">03</span>Academic &amp; professional</h2>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2026 – Present</div>
+        <div class="timeline-role">MSc Mathematical Finance</div>
+        <div class="timeline-org">University of Vienna</div>
         <p class="timeline-desc">Graduate studies in mathematical finance, building on a PDE and stochastic analysis background from my Bachelor's degree.</p>
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Apr 2026 – Sep 2026</div>
-      <div>
-        <h3 class="timeline-role">Teaching Assistant</h3>
-        <p class="timeline-org">Leibniz University Hannover · Institute of Applied Mathematics</p>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Apr 2026 – Sep 2026</div>
+        <div class="timeline-role">Teaching Assistant</div>
+        <div class="timeline-org">Leibniz University Hannover · Institute of Applied Mathematics</div>
         <p class="timeline-desc">Assisting in undergraduate analysis courses, grading assignments and correcting exams. Tutoring and grading for economics students.</p>
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Mar 2026 – Apr 2026</div>
-      <div>
-        <h3 class="timeline-role">Research Intern</h3>
-        <p class="timeline-org">Zuse Institute Berlin (ZIB)</p>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Mar 2026 – Apr 2026</div>
+        <div class="timeline-role">Research Intern</div>
+        <div class="timeline-org">Zuse Institute Berlin (ZIB)</div>
         <p class="timeline-desc">Independent research on adaptive sampling strategies for AAA rational approximation of expensive black-box functions, with applications to electromagnetic transmission (Maxwell equations, JCMwave) and implied volatility surfaces (Heston, SABR).</p>
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Nov 2025 – Mar 2026</div>
-      <div>
-        <h3 class="timeline-role">Student Assistant</h3>
-        <p class="timeline-org">Leibniz University Hannover · Institute of Applied Mathematics</p>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Nov 2025 – Mar 2026</div>
+        <div class="timeline-role">Student Assistant</div>
+        <div class="timeline-org">Leibniz University Hannover · Institute of Applied Mathematics</div>
         <p class="timeline-desc">Creation of mathematical problems and competition materials for workshops and student internships.</p>
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">2025 – 2026</div>
-      <div>
-        <h3 class="timeline-role">BSc Mathematics <span style="color: var(--accent2); font-family: var(--mono); font-size: 12px;">— Grade 1.3</span></h3>
-        <p class="timeline-org">Leibniz University Hannover</p>
-        <p class="timeline-desc">Specialisation in partial differential equations and numerical analysis. Core coursework: Functional Analysis, Numerical Methods for PDEs, Financial Mathematics, Stochastics. Thesis: <em>"A stochastic PDE system for chemotaxis"</em> (grade 1.0) — <a href="files/bachelorarbeit-rodacker-chemotaxis.pdf" download style="color: var(--accent);">download PDF</a>.</p>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2025 – 2026</div>
+        <div class="timeline-role">BSc Mathematics — grade 1.3</div>
+        <div class="timeline-org">Leibniz University Hannover</div>
+        <p class="timeline-desc">Specialisation in partial differential equations and numerical analysis. Core coursework: Functional Analysis, Numerical Methods for PDEs, Financial Mathematics, Stochastics. Completed 213 ECTS in total (180 required), overall GPA 1.3. Thesis: <em>"A stochastic PDE system for chemotaxis"</em> (grade 1.0) — <a href="files/bachelorarbeit-rodacker-chemotaxis.pdf" download>download PDF</a>.</p>
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">2022 – 2025</div>
-      <div>
-        <h3 class="timeline-role">Junior-Studium (Early University Enrollment)</h3>
-        <p class="timeline-org">Leibniz University Hannover</p>
+
+      <div class="timeline-item">
+        <div class="timeline-date">2022 – 2025</div>
+        <div class="timeline-role">Junior-Studium (Early University Enrollment)</div>
+        <div class="timeline-org">Leibniz University Hannover</div>
         <p class="timeline-desc">Completed 90+ ECTS of advanced mathematics coursework while in high school, credited toward the BSc degree.</p>
       </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Jan 2023</div>
-      <div>
-        <h3 class="timeline-role">Research Intern</h3>
-        <p class="timeline-org">Leibniz University Hannover · foeXlab, Institute for Solid State Physics, Institute for Microelectronic Systems</p>
+
+      <div class="timeline-item">
+        <div class="timeline-date">Jan 2023</div>
+        <div class="timeline-role">Research Intern</div>
+        <div class="timeline-org">Leibniz University Hannover · foeXlab, Institute for Solid State Physics, Institute for Microelectronic Systems</div>
         <p class="timeline-desc">Experimental physics and quantitative data analysis. Laboratory work with measurement systems and statistical evaluation of experimental results.</p>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="skills">
-  <div class="fade-in">
-    <p class="section-label">04 — Skills</p>
-    <h2>Technical<br /><em>Stack</em></h2>
-  </div>
-  <div class="skills-grid fade-in">
-    <div class="skill-group">
-      <p class="skill-group-title">Mathematics</p>
-      <ul class="skill-list">
-        <li>Partial Differential Equations</li>
-        <li>Stochastic Calculus</li>
-        <li>Numerical Analysis</li>
-        <li>Functional Analysis</li>
-        <li>Measure Theory</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <p class="skill-group-title">Programming</p>
-      <ul class="skill-list">
-        <li>Python</li>
-        <li>MATLAB</li>
-        <li>LaTeX</li>
-        <li>NumPy / SciPy / Pandas</li>
-        <li>Matplotlib / Plotly</li>
-        <li>Git / GitHub</li>
-      </ul>
-    </div>
-    <div class="skill-group">
-      <p class="skill-group-title">Quantitative Finance</p>
-      <ul class="skill-list">
-        <li>Derivatives Pricing</li>
-        <li>Vol Surface Calibration</li>
-        <li>Yield Curve Modelling</li>
-        <li>Greeks &amp; Risk Metrics</li>
-        <li>Backtesting Frameworks</li>
-        <li>QuantLib / Bloomberg</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="contact">
-  <div class="fade-in">
-    <p class="section-label">05 — Contact</p>
-    <h2>Get in<br /><em>Touch</em></h2>
-  </div>
-  <div class="contact-inner fade-in">
-
-    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xdaybdzl" method="POST">
-      <!-- honeypot -->
-      <input class="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
-
-      <div class="form-field">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required />
+    <section id="skills">
+      <h2><span class="num">04</span>Technical stack</h2>
+      <div class="skills-grid">
+        <div>
+          <p class="skill-group-title">Mathematics</p>
+          <ul class="skill-list">
+            <li>Partial Differential Equations</li>
+            <li>Stochastic Calculus</li>
+            <li>Numerical Analysis</li>
+            <li>Functional Analysis</li>
+            <li>Measure Theory</li>
+          </ul>
+        </div>
+        <div>
+          <p class="skill-group-title">Programming</p>
+          <ul class="skill-list">
+            <li>Python</li>
+            <li>MATLAB</li>
+            <li>LaTeX</li>
+            <li>NumPy / SciPy / Pandas</li>
+            <li>Matplotlib / Plotly</li>
+            <li>Git / GitHub</li>
+          </ul>
+        </div>
+        <div>
+          <p class="skill-group-title">Quantitative Finance</p>
+          <ul class="skill-list">
+            <li>Derivatives Pricing</li>
+            <li>Vol Surface Calibration</li>
+            <li>Yield Curve Modelling</li>
+            <li>Greeks &amp; Risk Metrics</li>
+            <li>Backtesting Frameworks</li>
+            <li>QuantLib / Bloomberg</li>
+          </ul>
+        </div>
       </div>
-      <div class="form-field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="your@email.com" required />
-      </div>
-      <div class="form-field">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="What's on your mind?" required></textarea>
-      </div>
-      <div class="form-submit">
-        <button type="submit" class="btn btn-primary">Send Message</button>
-        <span class="form-status" id="form-status">Message sent ✓</span>
-      </div>
-    </form>
+    </section>
 
-    <div class="contact-links">
-      <a href="https://linkedin.com/in/laurin-rodacker" class="contact-link" target="_blank">
-        <span class="contact-link-label">LinkedIn</span>
-        linkedin.com/in/laurin-rodacker
-      </a>
-      <a href="https://github.com/laurin-rodacker" class="contact-link" target="_blank">
-        <span class="contact-link-label">GitHub</span>
-        github.com/laurin-rodacker
-      </a>
-    </div>
+    <section id="contact">
+      <h2><span class="num">05</span>Get in touch</h2>
+      <p class="contact-text">Open to conversations about quantitative finance and research collaborations. Best reached via the form below or LinkedIn.</p>
 
-  </div>
-</section>
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/xdaybdzl" method="POST">
+        <input class="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="form-field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn">Send message</button>
+          <span class="form-status" id="form-status">Message sent ✓</span>
+        </div>
+      </form>
+
+      <div class="contact-links">
+        <a href="https://linkedin.com/in/laurin-rodacker" class="contact-link" target="_blank">
+          <span class="contact-link-label">LinkedIn</span>
+          linkedin.com/in/laurin-rodacker
+        </a>
+        <a href="https://github.com/laurin-rodacker" class="contact-link" target="_blank">
+          <span class="contact-link-label">GitHub</span>
+          github.com/laurin-rodacker
+        </a>
+      </div>
+    </section>
 
   </main>
 
@@ -441,11 +357,6 @@
   </footer>
 
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
     form.addEventListener('submit', async (e) => {
@@ -458,12 +369,12 @@
       if (res.ok) {
         form.reset();
         status.textContent = 'Message sent ✓';
-        status.style.color = 'var(--accent2)';
+        status.style.color = 'var(--teal)';
         status.style.display = 'inline';
         setTimeout(() => status.style.display = 'none', 4000);
       } else {
         status.textContent = 'Something went wrong. Try again.';
-        status.style.color = '#e07070';
+        status.style.color = 'var(--rust)';
         status.style.display = 'inline';
       }
     });

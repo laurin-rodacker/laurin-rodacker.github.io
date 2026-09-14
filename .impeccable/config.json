@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-09-14T08:32:23.792Z",
+        "reason": "false positive: .stats-group padding-left/top applied via .stats-group + .stats-group sibling combinator (48px desktop, 18px mobile) — detector doesn't resolve adjacent-sibling CSS, actual rendered inset is adequate"
+      }
+    ]
+  }
+}

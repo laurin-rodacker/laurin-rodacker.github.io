@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum | Laurin Rodacker</title>
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --paper:   #e8ede9;
+      --ink:     #1f2621;
+      --ink-soft:#576057;
+      --line:    #c9d2c9;
+      --rust:    #a8492f;
+      --teal:    #3f6b62;
+      --display: 'Newsreader', Georgia, serif;
+      --body:    'Source Serif 4', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .page { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+    nav { border-bottom: 1px solid var(--line); }
+    nav .inner {
+      max-width: 760px; margin: 0 auto; padding: 22px 28px;
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .nav-name { font-family: var(--display); font-size: 19px; color: var(--ink); text-decoration: none; }
+    .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 15px; border-bottom: 1px solid transparent; }
+    .nav-links a:hover { border-bottom-color: var(--rust); color: var(--ink); }
+
+    main.page { padding: 56px 0 80px; }
+    h1 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(32px, 5vw, 44px);
+      margin-bottom: 40px;
+    }
+    section { margin-bottom: 32px; }
+    h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 19px;
+      margin-bottom: 10px;
+      color: var(--teal);
+    }
+    p { max-width: 60ch; color: var(--ink); }
+    a { color: var(--rust); }
+
+    footer {
+      border-top: 1px solid var(--line); padding: 26px 0; max-width: 760px; margin: 0 auto;
+      display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-soft);
+    }
+
+    @media (min-width: 1024px) {
+      .page, nav .inner, footer { max-width: 900px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="inner">
+      <a href="index.html#top" class="nav-name">Laurin Rodacker</a>
+      <ul class="nav-links">
+        <li><a href="index.html#top">Back to site</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="page">
+    <h1>Impressum</h1>
+
+    <section>
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        Laurin Rodacker<br />
+        Pestalozzistraße 20<br />
+        31848 Bad Münder am Deister<br />
+        Deutschland
+      </p>
+    </section>
+
+    <section>
+      <h2>Kontakt</h2>
+      <p>E-Mail: <a href="mailto:contact@laurinrodacker.com">contact@laurinrodacker.com</a></p>
+    </section>
+
+    <section>
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>
+        Laurin Rodacker<br />
+        Pestalozzistraße 20<br />
+        31848 Bad Münder am Deister
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Laurin Rodacker</span>
+    <span><a href="index.html#top">Zurück zur Startseite</a></span>
+  </footer>
+
+</body>
+</html>
